@@ -1,21 +1,29 @@
 from SimpleXMLRPCServer import SimpleXMLRPCServer
 from SimpleXMLRPCServer import SimpleXMLRPCRequestHandler
-import xmlrpclib
 
 # Restrict to a particular path.
 class RequestHandler(SimpleXMLRPCRequestHandler):
 	rpc_paths = ('/RPC2',)
 
 # Create server
-server = SimpleXMLRPCServer(("localhost", 9997), requestHandler = RequestHandler)
+server = SimpleXMLRPCServer(("localhost", 8000), requestHandler = RequestHandler)
 server.register_introspection_functions()
 
-# Register an instance; all the methods of the instance are
-# published as XML-RPC methods (in this case, just 'div').
 class MyFuncs:
-	def sum(self, x, y):
-		s = xmlrpclib.ServerProxy('http://localhost:8000')
-		return s.calc(x, y)
+	def calc(self, numbers):
+		a, op, b = numbers.split(" ")
+		if op == '+':
+			return int(a) + int(b)
+		elif op == '-':
+			return int(a) - int(b)
+		elif op == '*':
+			return int(a) * int(b)
+		elif op == '/':
+			return float(a) / float(b)
+		elif (op == '**'):
+			return int(a) ** int(b)
+		else:
+			return float(b) ** (1 / float(a))
 
 server.register_instance(MyFuncs())
 
