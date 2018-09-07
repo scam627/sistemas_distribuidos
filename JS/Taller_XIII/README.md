@@ -21,7 +21,6 @@ Las instalaciones estan hechas sobre una distribución basada en debian, para la
         ```
 
 * Modulos de node:
-    * 
     * stream-set
         ```bash
         npm install stream-set
