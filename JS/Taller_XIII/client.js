@@ -1,17 +1,10 @@
-const net = require('net');
-const client = net.createConnection({ port: 6666}, () => {
-    console.log('conneted to server!');
-    client.write('world\r\n');
-});
+var net = require('net');
+var socket = net.connect(10000, 'localhost' );
 
 process.stdin.on('data', function (data) {
-    console.log(data.toString());
-})
+    socket.write(data);
+});
 
-//client.on('data',(data) => {
-//    console.log(data.toString());
-//});
-
-client.on('end',() => {
-    console.log('disconnected from server');
+socket.on('data', function(data){
+    process.stdout.write(data);
 });

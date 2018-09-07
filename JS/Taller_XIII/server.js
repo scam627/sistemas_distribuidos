@@ -1,19 +1,21 @@
-const net = require('net');
+var net = require('net');
+var streamSet = require('stream-set');
 
-const server = net.createServer((client)=>{
-    console.log('client connected');
-    client.on('end', () => {
-        console.log('client disconnected');
-    });
-    client.on('data', (data) =>{
-        client.write(data);
-    });
-    client.write('hello\r\n');
-    client.pipe(client);
+var clients = streamSet();
+
+var server = net.createServer( socket => {
+    console.log("new client connected");
+    // Proceso de replicacion del mensaje a los nodos que esten dentro del grupo
+    // importante el servidor abre un proceso independiente por cada cliente
+    clients.forEach(client => {
+        socket.on('data', data =>{
+            client.write(data);
+        });
+        client.on('data', data => {
+            socket.write(data);
+        })
+    }); 
+    clients.add(socket);
 });
-server.on('error', (err) => {
-    throw err;
-});
-server.listen(6666, () => {
-    console.log('server bound');
-});
+
+server.listen(10000);
