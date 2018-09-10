@@ -3,7 +3,7 @@ socket_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 socket_server.connect(("localhost", 9997))
 print "Envie una operacion con el siguiente formato:"
 print "Numero_1 Operador Numero_2"
-print "Operadores permitidos:"
+print "Operadores soportados:"
 print "suma -> +"
 print "resta -> -"
 print "division -> /"

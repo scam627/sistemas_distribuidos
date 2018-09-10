@@ -1,7 +1,7 @@
 import socket
 
 socket_proxy = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-socket_proxy.connect(("localhost", 9990))
+socket_proxy.connect(("localhost", 9996))
 
 print "Envie una operacion con el siguiente formato:"
 print "Numero_1 Operador Numero_2"

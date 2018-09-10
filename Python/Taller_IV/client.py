@@ -4,7 +4,7 @@ s = xmlrpclib.ServerProxy('http://localhost:8000')
 
 print "Envie una operacion con el siguiente formato:"
 print "Numero_1 Operador Numero_2"
-print "Operadores permitidos:"
+print "Operadores soportados:"
 print "suma -> +"
 print "resta -> -"
 print "division -> /"

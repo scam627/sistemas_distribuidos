@@ -1,7 +1,6 @@
-import xmlrpclib
-
-s = xmlrpclib.ServerProxy('http://localhost:9997')
-
+import socket
+socket_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+socket_server.connect(("localhost", 9998))
 print "Envie una operacion con el siguiente formato:"
 print "Numero_1 Operador Numero_2"
 print "Operadores soportados:"
@@ -12,6 +11,8 @@ print "multiplicacion -> *"
 print "potenciacion -> **"
 print "radicacion -> -/"
 print "logaritmacion -> log"
-
-numbers = raw_input("> ")
-print s.calc(numbers)
+numeros = raw_input("> ")
+socket_server.send(numeros)
+print "=> ", socket_server.recv(1024)
+print "Adios."
+socket_server.close()
